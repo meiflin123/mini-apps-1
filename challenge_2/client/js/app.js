@@ -56,24 +56,16 @@ $("button").click(function() {
 	$.ajax({
 		type: "POST",
 		url: 'http://localhost:3000/csv_report',
-		data: convert(/*data*/),
-		success: success,
-    // success: console.log,
-		dataType: null
+		data: $("textarea").val(),
+		contentType: "application/json",
+		success: function(data) {
+			$('body').append('<div>' + data + '</div>');
+		},
+		error: function(err){
+			console.log(err);
+		}
+		// contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		// dataType: 'text'
 	});	
 })
-
-
-function convert (inputData) {
-  // var obj = JSON.parse(inputData);
-  // var string = obj["firstName"] + ',' + obj["lastName"] + ',' + obj["county"] + ',' + obj["city"] + obj["role"]
-  return JSON.stringify({});
-}
-
-function success(outputData) {
-  console.log(outputData);
-	$('body').append('<div>' + outputData + '</div>');
-}
-
-
 
