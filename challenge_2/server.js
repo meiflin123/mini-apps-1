@@ -40,22 +40,30 @@ app.use(function(req,res,next){
 	res.status(404).send('not found');
 })
 
-var arr = []
+
+
+
 function convertToCvsData (obj) {
 	// push all the values to obj, except children.
 	// if has children, call the function(obj.children);
+	// push each value to arr, 
+	// arr.join into string
+	// string += \n
+  var arr = [];
 	for (var key in obj) {
 		if (key !== 'children') {
 			arr.push(obj[key]);
 		}
 	}
+	var smallStr = '<p>'+ arr.join(', ') + '</p>'
+
 	if(obj.hasOwnProperty('children')) {
 		for (var i = 0; i < obj['children'].length; i++) {
-		  arr.concat(convertToCvsData(obj.children[i]))
+		  smallStr+= (convertToCvsData(obj.children[i]))
 	  }
   }
-
-	return arr;
+  return smallStr
+	
 }
 // exports.app = app;
 
